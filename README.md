@@ -6,6 +6,20 @@ Este projeto implementa o clássico jogo **Genius (Simon)** utilizando **VHDL** 
 O objetivo é exercitar conceitos de **FSM (Máquina de Estados Finitos)**, **caminho de dados**, **interação com entradas/saídas físicas** e **aleatoriedade** aplicada em sistemas digitais.
 
 ---
+## Compilando
+
+Instale o compilador GHDL:
+
+   sudo apt update
+   sudo apt install ghdl gtkwave
+
+E para compilar:
+
+   ghdl -a "nome_do_arquivo".vhdl                   # analisa o módulo principal
+   ghdl -a tb_"nome_do_arquivo".vhdl                # analisa o testbench
+   ghdl -e tb_"nome_do_arquivo"                     # elabora o testbench
+   ghdl -r tb_"nome_do_arquivo" --vcd=wave.vcd      # executa e gera o arquivo de ondas
+
 
 ## Objetivo do Projeto
 
