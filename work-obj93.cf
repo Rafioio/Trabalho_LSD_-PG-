@@ -1,7 +1,10 @@
 v 4
-file . "tb_LFSR.vhdl" "f6728a2da11cd62281d469c060e31357c240786a" "20251109181021.264":
-  entity tb_lfsr at 1( 0) + 0 on 13;
-  architecture sim of tb_lfsr at 8( 102) + 0 on 14;
-file . "LFSR_8bit.vhdl" "ccd2d4e421e8e3a77e2b5724338a3d0caa06589d" "20251109181015.590":
-  entity lfsr_8bit at 1( 0) + 0 on 11;
-  architecture rtl of lfsr_8bit at 16( 371) + 0 on 12;
+file . "LFSR_3bit.vhdl" "0dcedd531328bb0f332633a99d60293fa2cda06e" "20251110012844.310":
+  entity lfsr_3bit at 1( 0) + 0 on 43;
+  architecture rtl of lfsr_3bit at 16( 371) + 0 on 44;
+file . "LFSR_8bit.vhdl" "99b52b2b271bcc442f278410409da32ce6eabb70" "20251109220624.349":
+  entity lfsr_8bit at 1( 0) + 0 on 35;
+  architecture rtl of lfsr_8bit at 16( 371) + 0 on 36;
+file . "tb_LFSR.vhdl" "e96b7c6f4e5d505705b46f430152b5e6b3930dde" "20251110012921.348":
+  entity tb_lfsr at 1( 0) + 0 on 47;
+  architecture sim of tb_lfsr at 10( 153) + 0 on 48;
