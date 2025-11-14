@@ -11,9 +11,7 @@ entity Controller is
         ativado : in STD_LOGIC_VECTOR(2 downto 0);
         sw_out : out STD_LOGIC_VECTOR(6 downto 0);
         inicia_Input : out STD_LOGIC;
-        enable_led : out STD_LOGIC;
-        vetor_resultado : out std_logic_vector(20 downto 0);
-        leds_out : out STD_LOGIC_VECTOR(6 downto 0)
+        vetor_resultado : out std_logic_vector(20 downto 0)
     );
 end Controller;
 
@@ -26,16 +24,11 @@ architecture Behavioral of Controller is
     
     signal contador_inputs : integer range 0 to 7 := 0;
     signal vetor_resultado_int : std_logic_vector(20 downto 0) := (others => '0');
-    signal leds_internos : STD_LOGIC_VECTOR(6 downto 0) := (others => '0');
-    signal enable_led_int : STD_LOGIC := '0';  -- Sinal interno para enable_led
     
 begin
-    -- Conecta sinais internos às saídas
     vetor_resultado <= vetor_resultado_int;
-    leds_out <= leds_internos;
-    enable_led <= enable_led_int;
 
-    -- Processo para construir o vetor resultado
+    -- Processo SENSÍVEL às mudanças no array_resposta
     process(resposta_usuario)
         variable temp_vector : std_logic_vector(20 downto 0);
     begin
@@ -46,37 +39,14 @@ begin
         vetor_resultado_int <= temp_vector;
     end process;
 
-    -- Processo para controlar os LEDs
-    process(clk, reset)
-    begin
-        if reset = '1' then
-            leds_internos <= (others => '0');
-        elsif rising_edge(clk) then
-            if enable_led_int = '1' and ativado /= "000" then
-                -- Converte código ativado para acender LED correspondente
-                case ativado is
-                    when "001" => leds_internos(0) <= '1';  -- SW0 -> LED0
-                    when "010" => leds_internos(1) <= '1';  -- SW1 -> LED1
-                    when "011" => leds_internos(2) <= '1';  -- SW2 -> LED2
-                    when "100" => leds_internos(3) <= '1';  -- SW3 -> LED3
-                    when "101" => leds_internos(4) <= '1';  -- SW4 -> LED4
-                    when "110" => leds_internos(5) <= '1';  -- SW5 -> LED5
-                    when "111" => leds_internos(6) <= '1';  -- SW6 -> LED6
-                    when others => null;
-                end case;
-            end if;
-        end if;
-    end process;
-
-    -- Processo principal da FSM
     process(clk, reset)
     begin
         if reset = '1' then
             estado <= AGUARDA_START;
             contador_inputs <= 0;
             inicia_Input <= '0';
-            enable_led_int <= '0';
             sw_out <= (others => '0');
+            -- Limpa array de resposta
             for i in 0 to 6 loop
                 resposta_usuario(i) <= "000";
             end loop;
@@ -87,32 +57,44 @@ begin
             case estado is
                 when AGUARDA_START =>
                     inicia_Input <= '0';
-                    enable_led_int <= '0';
                     contador_inputs <= 0;
                     if start = '1' then
                         estado <= CAPTURANDO;
                         inicia_Input <= '1';
-                        enable_led_int <= '1';  -- Ativa controle de LEDs
+                        report "Controller: Iniciando captura";
                     end if;
                     
                 when CAPTURANDO =>
                     inicia_Input <= '1';
-                    enable_led_int <= '1';  -- Mantém LEDs ativos
                     
                     if ativado /= "000" then
+                        -- Armazena no array e reporta
                         resposta_usuario(contador_inputs) <= ativado;
+                        report "Controller: Input " & integer'image(contador_inputs) & 
+                               " = " & integer'image(to_integer(unsigned(ativado))) &
+                               " (bin: " & 
+                               std_logic'image(ativado(2)) & 
+                               std_logic'image(ativado(1)) & 
+                               std_logic'image(ativado(0)) & ")";
+                        
                         contador_inputs <= contador_inputs + 1;
                         
                         if contador_inputs = 6 then
                             estado <= COMPLETO;
                             inicia_Input <= '0';
-                            enable_led_int <= '1';  -- Mantém LEDs acesos
+                            report "Controller: Captura completa!";
+                            -- Mostra o vetor final
+                            report "Vetor final: " & 
+                                   integer'image(to_integer(unsigned(vetor_resultado_int)));
+                            for i in 0 to 6 loop
+                                report "Pos " & integer'image(i) & ": " & 
+                                       integer'image(to_integer(unsigned(resposta_usuario(i))));
+                            end loop;
                         end if;
                     end if;
                     
                 when COMPLETO =>
                     inicia_Input <= '0';
-                    enable_led_int <= '1';  -- LEDs permanecem acesos
                     if reset = '1' then
                         estado <= AGUARDA_START;
                     end if;

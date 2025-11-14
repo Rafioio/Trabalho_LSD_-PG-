@@ -1,13 +1,13 @@
 v 4
-file . "Controller.vhdl" "c9c1c87fa9ff1178f18bb589523c5b8555c97ca4" "20251114212600.773":
-  entity controller at 1( 0) + 0 on 27;
-  architecture behavioral of controller at 17( 407) + 0 on 28;
+file . "Controller.vhdl" "b52f92eb25ba349af166be225c9b0bf5f4185665" "20251114223927.360":
+  entity controller at 1( 0) + 0 on 75;
+  architecture behavioral of controller at 20( 557) + 0 on 76;
 file . "tb_Input.vhdl" "988e5b247c5fbfa868f85be4df56ed2262f31a6a" "20251114212343.591":
   entity tb_input at 1( 0) + 0 on 23;
   architecture behavioral of tb_input at 8( 104) + 0 on 24;
-file . "Input.vhdl" "b22576bbb5e144c0f2b5092dce8a06bc178524cc" "20251114212600.761":
-  entity input at 1( 0) + 0 on 25;
-  architecture behavioral of input at 15( 308) + 0 on 26;
-file . "tb_Controller.vhdl" "52b1837146f4ea92d63474bc1f84ed8aeca1dade" "20251114212600.788":
-  entity tb_controller at 1( 0) + 0 on 29;
-  architecture behavioral of tb_controller at 8( 114) + 0 on 30;
+file . "Input.vhdl" "2a68f52fb34085ef313e9fec3776e1241c598f55" "20251114223927.350":
+  entity input at 1( 0) + 0 on 73;
+  architecture behavioral of input at 15( 308) + 0 on 74;
+file . "tb_Controller.vhdl" "a852381521259a16f8f115173c6cb77d4dc9360e" "20251114223927.371":
+  entity tb_controller at 1( 0) + 0 on 77;
+  architecture behavioral of tb_controller at 8( 114) + 0 on 78;
