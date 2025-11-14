@@ -16,9 +16,9 @@ Instale o compilador GHDL:
 E para compilar:
 
    ghdl -a "nome_do_arquivo".vhdl                                    # analisa o módulo principal
-   ghdl -a tb_"nome_do_arquivo".vhdl                                 # analisa o testbench
-   ghdl -e tb_"nome_do_arquivo"                                      # elabora o testbench
-   ghdl -r tb_"nome_do_arquivo" --vcd=wave.vcd --stop-time=300ns     # executa e gera o arquivo de ondas
+   ghdl -a tb_LFSR.vhdl                                              # analisa o testbench
+   ghdl -e tb_LFSR                                                   # elabora o testbench
+   ghdl -r tb_LFSR --vcd=wave.vcd --stop-time=300ns                  # executa e gera o arquivo de ondas
    gtkwave wave.vcd                                                  # abre o gtkwave para visualizar as ondas
 
    ghdl -a -fsynopsys LFSR_3bit.vhdl
