@@ -13,19 +13,20 @@ Instale o compilador GHDL:
    sudo apt update
    sudo apt install ghdl gtkwave
 
-E para compilar:
+# E para compilar:
 
-   ghdl -a "nome_do_arquivo".vhdl                                    # analisa o módulo principal
-   ghdl -a tb_LFSR.vhdl                                              # analisa o testbench
-   ghdl -e tb_LFSR                                                   # elabora o testbench
-   ghdl -r tb_LFSR --vcd=wave.vcd --stop-time=300ns                  # executa e gera o arquivo de ondas
-   gtkwave wave.vcd                                                  # abre o gtkwave para visualizar as ondas
+ghdl -a Types.vhdl
+ghdl -a Seed_generator.vhdl
+ghdl -a LFSR_3bits.vhdl
+ghdl -a Reorder_Vector.vhdl
+ghdl -a Controller.vhdl
+ghdl -a Sequence_design.vhdl
+ghdl -a tb_Sequence_design.vhdl
 
-   ghdl -a -fsynopsys LFSR_3bit.vhdl
-   ghdl -a -fsynopsys tb_LFSR.vhdl
-   ghdl -e -fsynopsys tb_LFSR
-   ghdl -r -fsynopsys tb_LFSR --stop-time=3us
-
+# Elaborar e executar
+ghdl -e tb_Sequence_design
+ghdl -r tb_Sequence_design --vcd=wave.vcd --stop-time=2000ns
+gtkwave wave.vcd 
 
 ## Objetivo do Projeto
 
